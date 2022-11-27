@@ -1,0 +1,13 @@
+DROP SCHEMA IF EXISTS CONFIG_SERVER CASCADE;
+
+CREATE SCHEMA IF NOT EXISTS CONFIG_SERVER;
+
+create table CONFIG_SERVER.PROPERTIES(
+    ID BIGINT auto_increment PRIMARY KEY,
+    APPLICATION varchar(8191),
+    PROFILE varchar(8191),
+    LABEL varchar(8191),
+    PROP_KEY varchar(8191),
+    PROP_VALUE varchar(32767),
+    primary key (ID)
+);

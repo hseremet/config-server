@@ -1,0 +1,61 @@
+### config-server ###
+
+server:
+  address: 0.0.0.0
+  port: 8080
+  servlet.context-path: /
+
+management:
+  address: 0.0.0.0
+  port: 8081
+  endpoints:
+    enabled-by-default: true
+    web.exposure.include: info,health,env,httptrace,metrics,loggers,refresh
+    health.show-details: always
+
+spring:
+  profiles:
+    include: jdbc
+    active: h2
+  cloud:
+    config:
+      server:
+        jdbc:
+          enabled: true
+          sql: SELECT PROP_KEY, PROP_VALUE FROM CONFIG_SERVER.PROPERTIES WHERE (APPLICATION=? OR APPLICATION = '*') and PROFILE=? and LABEL=?
+          order: 1
+
+---
+
+spring:
+  h2:
+    console:
+      enabled: true
+  config:
+    activate:
+      on-profile: h2
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.OracleDialect
+
+---
+#dev,stable,preprod,prod databaselerinizi benzer sekilde ekleyebilirsiniz
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    hikari:
+      schema: CONFIG_SHEMA_NAME
+    url: jdbc:oracle:BLABLA
+    username: user??
+    password: password??
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.OracleDialect

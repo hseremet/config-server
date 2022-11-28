@@ -22,7 +22,7 @@ spring:
       server:
         jdbc:
           enabled: true
-          sql: SELECT PROP_KEY, PROP_VALUE FROM CONFIG_SERVER.PROPERTIES WHERE (APPLICATION=? OR APPLICATION = '*') and PROFILE=? and LABEL=?
+          #sql: Tablo veya semayi ozellestirmek isterseniz--> SELECT PROP_KEY, PROP_VALUE FROM CONFIG_SERVER.PROPERTIES WHERE (APPLICATION=? OR APPLICATION = '*') and PROFILE=? and LABEL=?
           order: 1
 
 ---
